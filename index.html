@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Programa Alemão com Muryel – Ovídio Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+html{scroll-behavior:smooth;scroll-padding-top:66px}
+:root{
+  --gold:#C9A84C;--gold-l:#E8C96A;--gold-d:#8a6e28;
+  --neon:#FF1744;--neon-glow:rgba(255,23,68,.4);
+  --bg:#000;--s1:#080808;--s2:#0d0d0d;--s3:#111;
+  --b:#1e1e1e;--b2:#2a2a2a;
+  --t1:#fff;--t2:#aaa;--t3:#666;--t4:#333;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t1);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+
+/* URGENCY */
+.urg{background:linear-gradient(90deg,#5a0000,#b00a0a,#5a0000);text-align:center;padding:12px 5%;font-size:13px;font-weight:700;letter-spacing:.4px}
+.urg em{opacity:.6;margin:0 10px;font-style:normal}
+
+/* NAV */
+nav{display:flex;align-items:center;justify-content:space-between;padding:12px 5%;border-bottom:1px solid var(--b);position:sticky;top:0;z-index:200;background:rgba(0,0,0,.97);backdrop-filter:blur(12px)}
+.nav-logo-img{height:40px;width:auto;object-fit:contain}
+.nav-cta{background:var(--neon);color:#fff;padding:11px 24px;border-radius:6px;font-size:13px;font-weight:800;letter-spacing:.5px;box-shadow:0 0 18px var(--neon-glow);transition:.2s;cursor:pointer;border:none}
+.nav-cta:hover{background:#ff4060}
+
+/* TICKER */
+.tick{background:#080808;border-bottom:1px solid var(--b);padding:10px 0;overflow:hidden;white-space:nowrap}
+.tick-in{display:inline-block;animation:tick 32s linear infinite}
+.tick-in span{padding:0 28px;color:var(--t3);font-size:13px}
+.tick-in b{color:var(--gold)}
+@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* HERO */
+.hero{position:relative;min-height:88vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 5% 60px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg::before{content:'';position:absolute;inset:0;background:url('https://upload.wikimedia.org/wikipedia/en/b/ba/Flag_of_Germany.svg') center/cover no-repeat;opacity:.1}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.9) 0%,rgba(0,0,0,.97) 100%)}
+.hero-inner{position:relative;z-index:1;max-width:860px;width:100%}
+.hero-badge{display:inline-block;border:1px solid var(--gold-d);color:var(--gold);font-size:11px;font-weight:700;letter-spacing:1.5px;padding:7px 18px;border-radius:20px;margin-bottom:28px;text-transform:uppercase;background:rgba(201,168,76,.07)}
+.hero-logo-wrap{margin:0 auto 32px;max-width:680px;width:92%}
+.hero-logo-wrap img{width:100%;height:auto}
+.gold{color:var(--gold)}
+.hero h1{font-size:clamp(22px,3.5vw,46px);font-weight:900;line-height:1.15;letter-spacing:-.5px;margin-bottom:16px}
+.hero-sub{font-size:clamp(15px,1.8vw,18px);color:var(--t2);max-width:560px;margin:0 auto 34px;line-height:1.75}
+.btn{background:var(--neon);color:#fff;padding:18px 48px;border-radius:8px;font-size:17px;font-weight:900;display:inline-block;box-shadow:0 0 32px var(--neon-glow);transition:.2s;letter-spacing:.3px;cursor:pointer;border:none}
+.btn:hover{background:#ff4060;box-shadow:0 0 52px var(--neon-glow);transform:translateY(-2px)}
+.hero-price{margin-top:14px;color:var(--t3);font-size:14px}
+.hero-price s{color:var(--t4)}
+.hero-price b{color:var(--gold);font-size:15px}
+.hero-trust{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin-top:32px}
+.hero-trust span{font-size:13px;color:var(--t3);display:flex;align-items:center;gap:6px}
+.hero-trust span::before{content:'✓';color:var(--gold);font-weight:900}
+
+/* STATS */
+.stats{display:flex;justify-content:center;gap:48px;flex-wrap:wrap;padding:52px 5%;background:var(--s1);border-top:1px solid var(--b);border-bottom:1px solid var(--b)}
+.stat{text-align:center}
+.stat-n{font-size:clamp(32px,5vw,58px);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-l),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-l{font-size:11px;color:var(--t3);margin-top:6px;text-transform:uppercase;letter-spacing:1.5px}
+
+/* DEPOIMENTOS */
+.dep-section{background:var(--s2);padding:70px 0;border-bottom:1px solid var(--b)}
+.dep-inner{max-width:1040px;margin:0 auto;padding:0 5%}
+.dep-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+@media(max-width:700px){.dep-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:420px){.dep-grid{grid-template-columns:1fr}}
+
+.dep-card{border-radius:14px;overflow:hidden;border:1.5px solid var(--b);cursor:pointer;position:relative;aspect-ratio:9/16;transition:border-color .2s,transform .2s}
+.dep-card:hover{border-color:var(--gold-d);transform:translateY(-3px)}
+.dep-card:hover .dep-play{transform:scale(1.1)}
+
+/* face do card (antes de clicar) */
+.dep-face{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:20px;transition:opacity .2s}
+.dep-num{font-size:10px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.35)}
+.dep-play{width:64px;height:64px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 28px rgba(0,0,0,.6);transition:transform .2s;flex-shrink:0}
+.dep-play svg{fill:#000;margin-left:5px}
+.dep-name{font-size:13px;font-weight:700;color:#fff;text-align:center;line-height:1.4}
+.dep-badge{font-size:10px;font-weight:700;color:var(--gold);background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);padding:4px 12px;border-radius:20px;letter-spacing:.5px;text-align:center}
+
+/* iframe dentro do card */
+.dep-card iframe{position:absolute;inset:0;width:100%;height:100%;border:none;z-index:2}
+.dep-card.playing .dep-face{opacity:0;pointer-events:none}
+
+/* SECTION GENERICS */
+section{padding:80px 5%}
+.sl{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:10px;text-align:center}
+.st{font-size:clamp(24px,3.2vw,40px);font-weight:900;text-align:center;line-height:1.2;letter-spacing:-.5px;margin-bottom:14px}
+.ss{text-align:center;color:var(--t3);max-width:580px;margin:0 auto 52px;font-size:15px;line-height:1.8}
+.bg1{background:var(--s1)}
+.bg2{background:var(--s2)}
+
+/* PARA QUEM É */
+.pq-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;max-width:960px;margin:0 auto}
+.pq-card{background:var(--s2);border:1px solid var(--b);border-radius:12px;padding:24px;display:flex;gap:16px;align-items:flex-start;transition:.2s}
+.pq-card:hover{border-color:var(--gold-d)}
+.pq-icon{font-size:28px;flex-shrink:0}
+.pq-card h3{font-size:15px;font-weight:800;margin-bottom:6px;color:var(--gold)}
+.pq-card p{font-size:13px;color:var(--t3);line-height:1.7}
+.transf{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:860px;margin:52px auto 0}
+.transf-col{background:var(--s2);border-radius:12px;padding:28px}
+.transf-col h3{font-size:13px;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:18px}
+.transf-col.before h3{color:var(--t3)}
+.transf-col.after h3{color:var(--gold)}
+.transf-col li{list-style:none;font-size:14px;padding:8px 0;border-bottom:1px solid var(--b);color:var(--t2);display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+.transf-col li:last-child{border-bottom:none}
+.transf-col.before li::before{content:'✗';color:#444;flex-shrink:0}
+.transf-col.after li::before{content:'✓';color:var(--gold);flex-shrink:0;font-weight:900}
+@media(max-width:580px){.transf{grid-template-columns:1fr}}
+
+/* COMO FUNCIONA */
+.how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;max-width:960px;margin:0 auto}
+.how-card{background:var(--s2);border:1px solid var(--b);border-radius:12px;padding:28px;transition:.2s}
+.how-card:hover{border-color:var(--gold-d)}
+.how-n{font-size:42px;font-weight:900;color:var(--b2);line-height:1;margin-bottom:10px}
+.how-t{font-size:16px;font-weight:800;color:var(--gold);margin-bottom:8px}
+.how-d{font-size:14px;color:var(--t3);line-height:1.7}
+
+/* EMENTA */
+.ementa-wrap{max-width:760px;margin:0 auto}
+.ementa-item{border:1px solid var(--b);border-radius:12px;margin-bottom:12px;overflow:hidden}
+.ementa-head{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;cursor:pointer;user-select:none;background:var(--s2);transition:.2s}
+.ementa-head:hover{background:var(--s3)}
+.ementa-head-left{display:flex;align-items:center;gap:16px}
+.ementa-level{background:var(--gold-d);color:var(--gold-l);font-size:11px;font-weight:800;letter-spacing:1.5px;padding:4px 12px;border-radius:20px;text-transform:uppercase}
+.ementa-head h3{font-size:16px;font-weight:800}
+.ementa-arrow{font-size:18px;color:var(--gold);transition:.3s;flex-shrink:0}
+.ementa-item.open .ementa-arrow{transform:rotate(180deg)}
+.ementa-body{display:none;padding:20px 24px;background:var(--s1);border-top:1px solid var(--b)}
+.ementa-item.open .ementa-body{display:block}
+.ementa-body ul{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
+.ementa-body li{font-size:13px;color:var(--t2);display:flex;gap:8px;align-items:flex-start;line-height:1.5}
+.ementa-body li::before{content:'→';color:var(--gold);flex-shrink:0;font-weight:700}
+
+/* CONQUISTAS */
+.conq-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;max-width:960px;margin:0 auto}
+.conq-card{background:var(--s2);border:1px solid var(--b);border-radius:12px;padding:24px;display:flex;gap:14px;align-items:flex-start;transition:.2s}
+.conq-card:hover{border-color:var(--gold-d)}
+.conq-icon{font-size:26px;flex-shrink:0}
+.conq-card p{font-size:14px;color:var(--t2);line-height:1.6}
+
+/* PLANOS */
+.plans-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;max-width:880px;margin:0 auto}
+.plan{border-radius:16px;overflow:hidden;border:1.5px solid var(--b);background:var(--s2);display:flex;flex-direction:column}
+.plan.featured{border-color:var(--gold-d);box-shadow:0 0 50px rgba(201,168,76,.08)}
+.plan-badge{background:linear-gradient(90deg,var(--gold-d),var(--gold),var(--gold-d));color:#000;font-size:11px;font-weight:900;letter-spacing:1.5px;text-align:center;padding:9px;text-transform:uppercase}
+.plan-h{padding:26px 26px 16px}
+.plan-tier{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);font-weight:700;margin-bottom:8px}
+.plan-name{font-size:28px;font-weight:900;letter-spacing:-1px;color:var(--gold)}
+.plan-sub{font-size:13px;color:var(--t3);margin-top:2px}
+.plan-p{padding:0 26px 20px;border-bottom:1px solid var(--b)}
+.plan-old{font-size:12px;color:var(--t4);text-decoration:line-through;margin-bottom:4px}
+.plan-inst{font-size:38px;font-weight:900;line-height:1}
+.plan-inst small{font-size:15px;color:var(--t3);font-weight:500}
+.plan-or{font-size:12px;color:var(--t3);margin:8px 0 4px}
+.plan-avista{font-size:26px;font-weight:900;color:var(--gold);text-shadow:0 0 20px rgba(201,168,76,.25)}
+.plan-eur{font-size:14px;color:var(--t3);font-weight:500}
+.plan-sepa{font-size:11px;color:var(--t4);margin-top:5px;line-height:1.7}
+.plan-feats{padding:16px 26px;flex:1}
+.plan-feats ul{list-style:none}
+.plan-feats li{font-size:13px;color:#bbb;padding:7px 0;display:flex;align-items:flex-start;gap:9px;line-height:1.5;border-bottom:1px solid #0e0e0e}
+.plan-feats li:last-child{border-bottom:none}
+.plan-feats li::before{content:'✓';color:var(--gold);font-weight:900;flex-shrink:0;margin-top:1px}
+.plan-feats li.bon{color:var(--t3)}
+.plan-feats li.bon::before{content:'🎁'}
+.tag{font-size:10px;color:var(--gold);background:rgba(201,168,76,.1);border:1px solid var(--gold-d);padding:2px 8px;border-radius:20px;margin-left:auto;flex-shrink:0;align-self:center}
+.plan-cta-w{padding:0 26px 26px;margin-top:auto}
+.plan-cta{display:block;background:var(--neon);color:#fff;text-align:center;padding:16px;border-radius:8px;font-size:16px;font-weight:900;transition:.2s;box-shadow:0 0 24px var(--neon-glow);letter-spacing:.3px}
+.plan-cta:hover{background:#ff4060;box-shadow:0 0 44px var(--neon-glow);transform:translateY(-1px)}
+.plan-guar{text-align:center;font-size:12px;color:var(--t3);margin-top:10px}
+
+/* BÔNUS */
+.bonus-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;max-width:960px;margin:0 auto}
+.bonus-card{background:#090500;border:1px solid #2a1e00;border-radius:12px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start;transition:.2s}
+.bonus-card:hover{border-color:var(--gold-d)}
+.bonus-card .bi{font-size:24px;flex-shrink:0}
+.bonus-card .bt{font-size:14px;font-weight:700;color:var(--gold);margin-bottom:3px}
+.bonus-card .bd{font-size:12px;color:var(--t3)}
+
+/* SOBRE MIM */
+.sobre{display:flex;align-items:center;gap:60px;max-width:940px;margin:0 auto;flex-wrap:wrap}
+.prof-img{width:260px;height:260px;border-radius:50%;object-fit:cover;border:3px solid var(--gold);box-shadow:0 0 50px rgba(201,168,76,.18);flex-shrink:0}
+.prof-body h2{font-size:30px;font-weight:900;margin-bottom:12px}
+.prof-body p{color:var(--t3);font-size:15px;line-height:1.85;margin-bottom:14px}
+.prof-tags{display:flex;gap:8px;flex-wrap:wrap}
+.prof-tag{background:var(--s3);border:1px solid var(--b);border-radius:20px;padding:7px 14px;font-size:12px;color:var(--gold);font-weight:700}
+@media(max-width:640px){.sobre{flex-direction:column;text-align:center}.prof-img{margin:0 auto}.prof-tags{justify-content:center}}
+
+/* FAQ */
+.faq-wrap{max-width:740px;margin:0 auto}
+.faq-item{border-bottom:1px solid var(--b)}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:20px 0;cursor:pointer;user-select:none;gap:16px}
+.faq-q span{font-size:15px;font-weight:700;line-height:1.5}
+.faq-ico{font-size:22px;color:var(--gold);flex-shrink:0;transition:.3s}
+.faq-item.open .faq-ico{transform:rotate(45deg)}
+.faq-a{display:none;padding-bottom:20px;color:var(--t3);font-size:14px;line-height:1.8}
+.faq-item.open .faq-a{display:block}
+
+/* FINAL CTA */
+.final{text-align:center;padding:90px 5%;background:radial-gradient(ellipse at center,#1a0404 0%,#000 70%)}
+
+/* FOOTER */
+footer{background:#000;border-top:1px solid #0c0c0c;padding:36px 5%;text-align:center}
+footer p{color:var(--t4);font-size:13px;line-height:1.9}
+
+/* FLOAT */
+.float{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:999;background:var(--neon);color:#fff;padding:14px 34px;border-radius:50px;font-size:14px;font-weight:900;box-shadow:0 0 30px var(--neon-glow);animation:pulse 2.4s ease-in-out infinite;white-space:nowrap;letter-spacing:.3px;cursor:pointer;border:none}
+@keyframes pulse{0%,100%{box-shadow:0 0 22px var(--neon-glow)}50%{box-shadow:0 0 52px var(--neon-glow)}}
+.float:hover{background:#ff4060}
+</style>
+</head>
+<body>
+
+<div class="urg">🔥 DESCONTO DE R$1.000 ATIVO<em>·</em>Matrículas abertas somente até 10/06<em>·</em>🔥 Acesso vitalício ♾️ com garantia de 30 dias</div>
+
+<nav>
+  <img class="nav-logo-img"
+       src="https://drive.google.com/uc?export=view&id=1VUEjTM0oyUE_IOupk2Ho0iF2tyFxfnwO"
+       alt="Ovídio Academy"
+       onerror="this.style.display='none'"/>
+  <button class="nav-cta" onclick="goTo('planos')">GARANTIR VAGA →</button>
+</nav>
+
+<div class="tick"><div class="tick-in">
+  <span>✦ <b>+3.000 alunos</b> formados</span><span>✦ A1 ao B2 completo</span><span>✦ Acesso <b>vitalício ♾️</b></span><span>✦ Método <b>Ovídio™</b></span><span>✦ Tutor IA <b>24h</b></span><span>✦ 2 aulas ao vivo por semana</span><span>✦ <b>30 dias</b> de garantia</span><span>✦ Certificado oficial</span>
+  <span>✦ <b>+3.000 alunos</b> formados</span><span>✦ A1 ao B2 completo</span><span>✦ Acesso <b>vitalício ♾️</b></span><span>✦ Método <b>Ovídio™</b></span><span>✦ Tutor IA <b>24h</b></span><span>✦ 2 aulas ao vivo por semana</span><span>✦ <b>30 dias</b> de garantia</span><span>✦ Certificado oficial</span>
+</div></div>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">🇩🇪 Programa Completo · A1 → B2</div>
+    <div class="hero-logo-wrap">
+      <img src="COLE_AQUI_URL_DA_LOGO_ACM.png" alt="Programa Alemão com Muryel"
+           onerror="this.style.display='none'"/>
+    </div>
+    <h1>Do zero à <span class="gold">fluência em alemão</span><br/>em apenas 10 meses</h1>
+    <p class="hero-sub">Destrave sua fala em 1 mês e alcance o nível B2 com o programa mais completo de alemão do Brasil — A1 ao B2, com suporte real e método comprovado.</p>
+    <button class="btn" onclick="goTo('planos')">QUERO ME MATRICULAR →</button>
+    <div class="hero-price">De <s>R$ 2.497</s> por apenas <b>R$ 1.497</b> · ou 12x de R$ 149,70</div>
+    <div class="hero-trust">
+      <span>Acesso vitalício ♾️</span><span>30 dias de garantia</span><span>+3.000 alunos</span><span>Certificado oficial</span>
+    </div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat"><div class="stat-n">+3.000</div><div class="stat-l">Alunos formados</div></div>
+  <div class="stat"><div class="stat-n">A1→B2</div><div class="stat-l">Curso completo</div></div>
+  <div class="stat"><div class="stat-n">10</div><div class="stat-l">Meses para fluência</div></div>
+  <div class="stat"><div class="stat-n">4,9★</div><div class="stat-l">Avaliação dos alunos</div></div>
+</div>
+
+<!-- DEPOIMENTOS -->
+<div class="dep-section" id="depoimentos">
+  <div class="dep-inner">
+    <div class="sl">Resultados reais</div>
+    <h2 class="st">Alunos que <span class="gold">destravaram o alemão</span></h2>
+    <p class="ss">Clique em qualquer card para assistir ao depoimento.</p>
+    <div class="dep-grid" id="depGrid"></div>
+    <div style="text-align:center;margin-top:44px">
+      <button class="btn" onclick="goTo('planos')">QUERO ESSES RESULTADOS →</button>
+    </div>
+  </div>
+</div>
+
+<section class="bg1" id="para-quem">
+  <div class="sl">Para quem é</div>
+  <h2 class="st">Esse programa foi feito <span class="gold">para você</span> se…</h2>
+  <p class="ss">Não importa seu ponto de partida — o Método Ovídio™ funciona para qualquer perfil.</p>
+  <div class="pq-grid">
+    <div class="pq-card"><div class="pq-icon">🔰</div><div><h3>Você é iniciante completo</h3><p>Nunca estudou alemão e quer começar do zero com o método certo, sem perder tempo.</p></div></div>
+    <div class="pq-card"><div class="pq-icon">😤</div><div><h3>Você travou no passado</h3><p>Tentou aprender antes mas não evoluiu. Aqui você desbloqueia sua fala desde a semana 1.</p></div></div>
+    <div class="pq-card"><div class="pq-icon">✈️</div><div><h3>Você vai morar/trabalhar na Alemanha</h3><p>Precisa do alemão para visto, trabalho ou intercâmbio — e quer chegar preparado.</p></div></div>
+    <div class="pq-card"><div class="pq-icon">🎓</div><div><h3>Você precisa da certificação</h3><p>Quer o Goethe ou TELC para comprovar proficiência — os preparatórios já estão inclusos.</p></div></div>
+    <div class="pq-card"><div class="pq-icon">⏱️</div><div><h3>Você tem pouco tempo</h3><p>Estuda em paralelo com trabalho e família — 20 a 30 min/dia é suficiente com o cronograma.</p></div></div>
+    <div class="pq-card"><div class="pq-icon">💬</div><div><h3>Você quer conversar de verdade</h3><p>Chega de decorar gramática sem sair do lugar. Aqui você fala alemão desde o primeiro dia.</p></div></div>
+  </div>
+  <div class="transf">
+    <div class="transf-col before">
+      <h3>Sem o Programa</h3>
+      <ul>
+        <li>Trava quando tenta falar</li><li>Estuda anos sem sair do básico</li>
+        <li>Vocabulário que some da memória</li><li>Sem consistência, sem método</li>
+        <li>Gramática decorada, não aplicada</li><li>Sem certificado, sem comprovação</li>
+      </ul>
+    </div>
+    <div class="transf-col after">
+      <h3>Com o Programa AcM</h3>
+      <ul>
+        <li>Fala com segurança desde a semana 1</li><li>A1 ao B2 em 10 meses estruturados</li>
+        <li>Hipermemorização científica de vocab</li><li>Cronograma diário pronto no app</li>
+        <li>Gramática aplicada na conversação</li><li>Certificado oficial de conclusão</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="bg2" id="metodo">
+  <div class="sl">Como funciona</div>
+  <h2 class="st">O <span class="gold">Método Ovídio™</span> em 6 pilares</h2>
+  <p class="ss">A metodologia acelerada dos poliglotas, estruturada para levar qualquer brasileiro ao B2 com consistência.</p>
+  <div class="how-grid">
+    <div class="how-card"><div class="how-n">01</div><div class="how-t">Conversação no Dia 1</div><div class="how-d">Você fala alemão desde a primeira semana. Gramática é suporte — não pré-requisito.</div></div>
+    <div class="how-card"><div class="how-n">02</div><div class="how-t">Técnica LEGO™</div><div class="how-d">Construção modular da língua — você monta frases como peças, ganhando velocidade e fluidez reais.</div></div>
+    <div class="how-card"><div class="how-n">03</div><div class="how-t">Hipermemorização</div><div class="how-d">Repetição espaçada + associações contextuais. Mais de 2.000 palavras fixadas de forma duradoura.</div></div>
+    <div class="how-card"><div class="how-n">04</div><div class="how-t">Tutor IA 24h</div><div class="how-d">Pratique a qualquer hora, sem julgamento. Correção imediata de pronúncia, gramática e vocabulário.</div></div>
+    <div class="how-card"><div class="how-n">05</div><div class="how-t">Estratégias DLI & FSI</div><div class="how-d">Baseado nos institutos militares de elite — referência mundial em aprendizado acelerado de idiomas.</div></div>
+    <div class="how-card"><div class="how-n">06</div><div class="how-t">Cronograma Diário</div><div class="how-d">Plano de estudos pronto no app. Você abre, segue o passo a passo do dia e evolui — sem improvisar.</div></div>
+  </div>
+</section>
+
+<section class="bg1" id="ementa">
+  <div class="sl">Ementa completa</div>
+  <h2 class="st">Do <span class="gold">A1 ao B2</span> — o que você vai estudar</h2>
+  <p class="ss">Cada módulo é estruturado para garantir progresso real. Clique para expandir cada nível.</p>
+  <div class="ementa-wrap">
+    <div class="ementa-item open" onclick="toggleEmenta(this)">
+      <div class="ementa-head"><div class="ementa-head-left"><span class="ementa-level">A1</span><h3>Iniciante — Primeiros Passos</h3></div><span class="ementa-arrow">▼</span></div>
+      <div class="ementa-body"><ul><li>Apresentações e cumprimentos</li><li>Números e datas</li><li>Cores e objetos do dia a dia</li><li>Verbos ser, estar e ter</li><li>Artigos definidos e indefinidos</li><li>Pronomes pessoais</li><li>Família e pessoas próximas</li><li>Rotina diária básica</li><li>Preposições básicas</li><li>Frases interrogativas</li><li>Pronúncia e fonética alemã</li><li>Vocabulário essencial A1</li></ul></div>
+    </div>
+    <div class="ementa-item" onclick="toggleEmenta(this)">
+      <div class="ementa-head"><div class="ementa-head-left"><span class="ementa-level">A2</span><h3>Básico — Comunicação Cotidiana</h3></div><span class="ementa-arrow">▼</span></div>
+      <div class="ementa-body"><ul><li>Compras e preços</li><li>Restaurantes e pedidos</li><li>Transporte e orientação</li><li>Tempo e clima</li><li>Passado simples (Perfekt)</li><li>Verbos modais</li><li>Acusativo e dativo</li><li>Adjetivos e comparativos</li><li>Casa e mobiliário</li><li>Saúde e corpo humano</li><li>Hobbies e lazer</li><li>Vocabulário essencial A2</li></ul></div>
+    </div>
+    <div class="ementa-item" onclick="toggleEmenta(this)">
+      <div class="ementa-head"><div class="ementa-head-left"><span class="ementa-level">B1</span><h3>Intermediário — Fluência Inicial</h3></div><span class="ementa-arrow">▼</span></div>
+      <div class="ementa-body"><ul><li>Expressão de opiniões</li><li>Narrativa de eventos passados</li><li>Futuro e planos</li><li>Konjunktiv II básico</li><li>Orações subordinadas</li><li>Casos completos (N/A/D/G)</li><li>Trabalho e carreira</li><li>Viagens e turismo</li><li>Expressões idiomáticas</li><li>Mídia e tecnologia</li><li>Preparatório Goethe/TELC B1</li><li>Vocabulário avançado B1</li></ul></div>
+    </div>
+    <div class="ementa-item" onclick="toggleEmenta(this)">
+      <div class="ementa-head"><div class="ementa-head-left"><span class="ementa-level">B2</span><h3>Intermediário Avançado — Fluência Plena</h3></div><span class="ementa-arrow">▼</span></div>
+      <div class="ementa-body"><ul><li>Argumentação e debate</li><li>Konjunktiv I — discurso indireto</li><li>Passiva e estruturas complexas</li><li>Textos acadêmicos e profissionais</li><li>Vocabulário especializado</li><li>Sotaques regionais</li><li>Compreensão de nativos</li><li>Redação em alemão</li><li>Preparatório Goethe/TELC B2</li><li>Entrevistas e contexto profissional</li><li>Expressões avançadas</li><li>Projeto final de conversação</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="bg2" id="conquistas">
+  <div class="sl">O que você vai conquistar</div>
+  <h2 class="st">Transformações <span class="gold">reais e mensuráveis</span></h2>
+  <p class="ss">Ao final do programa, você terá muito mais do que alemão — terá a mente de um poliglota.</p>
+  <div class="conq-grid">
+    <div class="conq-card"><div class="conq-icon">🗣️</div><p>Falar em qualquer situação cotidiana com confiança e naturalidade, mesmo com nativos</p></div>
+    <div class="conq-card"><div class="conq-icon">✈️</div><p>Se virar sozinho em um país de língua alemã — restaurante, transporte, trabalho, moradia</p></div>
+    <div class="conq-card"><div class="conq-icon">🧠</div><p>Memorizar vocabulário de forma duradoura com técnicas de hipermemorização científica</p></div>
+    <div class="conq-card"><div class="conq-icon">📄</div><p>Certificado oficial de conclusão + preparação completa para Goethe/TELC A1 ao B2</p></div>
+    <div class="conq-card"><div class="conq-icon">⚡</div><p>Método para aprender qualquer idioma — você não aprende só alemão, aprende a aprender</p></div>
+    <div class="conq-card"><div class="conq-icon">🤖</div><p>Acesso vitalício ao Tutor IA para praticar conversação 24h, mesmo após concluir o programa</p></div>
+    <div class="conq-card"><div class="conq-icon">📱</div><p>App com cronograma diário personalizado para manter consistência mesmo com agenda cheia</p></div>
+    <div class="conq-card"><div class="conq-icon">💬</div><p>Prática real de conversação individual com suporte via WhatsApp durante toda a jornada</p></div>
+  </div>
+  <div style="text-align:center;margin-top:48px">
+    <button class="btn" onclick="goTo('planos')">QUERO CONQUISTAR TUDO ISSO →</button>
+  </div>
+</section>
+
+<section class="bg1" id="planos">
+  <div class="sl">Escolha seu plano</div>
+  <h2 class="st">⚠️ <span class="gold">R$1.000 de desconto</span> até 10/06</h2>
+  <p class="ss">Acesso vitalício ♾️ com 30 dias de garantia. Após essa data, o preço volta para R$2.497.</p>
+  <div class="plans-grid">
+    <div class="plan featured">
+      <div class="plan-badge">⭐ MAIS ESCOLHIDO</div>
+      <div class="plan-h"><div class="plan-tier">🥇 PLANO GOLD · VITALÍCIO EM TURMA</div><div class="plan-name">Gold</div><div class="plan-sub">Programa completo com suporte em turma</div></div>
+      <div class="plan-p">
+        <div class="plan-old">De R$ 1.997</div>
+        <div class="plan-inst"><small>12x </small>R$149,70</div>
+        <div class="plan-or">ou à vista</div>
+        <div class="plan-avista">R$ 1.497</div>
+        <div class="plan-eur">/ 250€</div>
+        <div class="plan-sepa">💶 SEPA · IBAN BE64 9050 6886 4852 · BIC TRWIBEB1XXX</div>
+      </div>
+      <div class="plan-feats"><ul>
+        <li>Acesso vitalício ao curso A1–B2 completo</li><li>2 Aulas ao vivo semanais</li>
+        <li>Conversação individual via WhatsApp</li><li>Tutor IA para conversação 24/7</li>
+        <li>App + cronograma diário personalizado</li><li>Plano de estudos personalizado</li>
+        <li>Suporte 24h</li><li>Certificado de conclusão</li>
+        <li class="bon">Protocolo Ovídio Alemão (28 dias) <span class="tag">R$997→grátis</span></li>
+        <li class="bon">Protocolo Ovídio Inglês</li><li class="bon">Protocolo Ovídio Suíço-Alemão</li>
+        <li class="bon">Alemão com Músicas e Séries</li><li class="bon">Preparatórios Goethe/TELC A1 ao B1</li>
+        <li class="bon">Podcast Destravando seu Alemão</li>
+      </ul></div>
+      <div class="plan-cta-w">
+        <a href="https://pay.onprofit.com.br/1JIlf7eX?off=j8BQIz" target="_blank" class="plan-cta">GARANTIR PLANO GOLD →</a>
+        <div class="plan-guar">🔒 30 dias de garantia — sem perguntas</div>
+      </div>
+    </div>
+    <div class="plan" style="border-color:#2a2a2a">
+      <div class="plan-h"><div class="plan-tier">⚫ PLANO BLACK · VITALÍCIO + PARTICULAR</div><div class="plan-name" style="color:#ccc">Black</div><div class="plan-sub">Máximo resultado no mínimo de tempo</div></div>
+      <div class="plan-p">
+        <div class="plan-old">De R$ 4.497</div>
+        <div class="plan-inst"><small>12x </small>R$349,70</div>
+        <div class="plan-or">ou à vista</div>
+        <div class="plan-avista" style="color:#ccc">R$ 3.497</div>
+        <div class="plan-eur">/ 560€</div>
+        <div class="plan-sepa">💶 SEPA · IBAN BE64 9050 6886 4852 · BIC TRWIBEB1XXX</div>
+      </div>
+      <div class="plan-feats"><ul>
+        <li>Tudo do Plano Gold +</li><li>2 meses de aulas particulares <span class="tag">~R$1.600</span></li>
+        <li>Professor dedicado 24/7</li><li>Plano de estudos VIP</li><li>6 meses de Tutor IA Premium</li>
+        <li class="bon">Todos os bônus do Gold +</li><li class="bon">Preparatórios Goethe/TELC B2 e C1</li>
+        <li class="bon">Futuros Protocolos Ovídio 🇺🇸🇪🇸🇫🇷🇮🇹</li>
+      </ul></div>
+      <div class="plan-cta-w">
+        <a href="https://pay.onprofit.com.br/yPS8dWV6?off=uZlO5R" target="_blank" class="plan-cta">GARANTIR PLANO BLACK →</a>
+        <div class="plan-guar">🔒 30 dias de garantia — sem perguntas</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg2" id="bonus">
+  <div class="sl">Bônus inclusos</div>
+  <h2 class="st">+ <span class="gold">R$ 3.000 em bônus</span> inclusos</h2>
+  <p class="ss">Cursos completos que aceleram sua fluência — inclusos sem custo adicional.</p>
+  <div class="bonus-grid">
+    <div class="bonus-card"><div class="bi">🔥</div><div><div class="bt">Protocolo Ovídio Alemão</div><div class="bd">28 dias de conversação intensiva · R$997 → grátis hoje</div></div></div>
+    <div class="bonus-card"><div class="bi">🇬🇧</div><div><div class="bt">Protocolo Ovídio Inglês</div><div class="bd">Método completo para o inglês</div></div></div>
+    <div class="bonus-card"><div class="bi">🇨🇭</div><div><div class="bt">Protocolo Ovídio Suíço-Alemão</div><div class="bd">O dialeto suíço descomplicado</div></div></div>
+    <div class="bonus-card"><div class="bi">🎵</div><div><div class="bt">Alemão com Músicas</div><div class="bd">Vocabulário e imersão via músicas alemãs</div></div></div>
+    <div class="bonus-card"><div class="bi">📺</div><div><div class="bt">Alemão com Séries</div><div class="bd">Estratégias para aprender com séries e filmes</div></div></div>
+    <div class="bonus-card"><div class="bi">🗺️</div><div><div class="bt">Mapa do Alemão</div><div class="bd">Estratégias de organização e rotina de estudos</div></div></div>
+    <div class="bonus-card"><div class="bi">🎙️</div><div><div class="bt">Scripts Podcast Destravando seu Alemão</div><div class="bd">Treino de escuta e conversação com nativos</div></div></div>
+    <div class="bonus-card"><div class="bi">📝</div><div><div class="bt">Preparatórios Goethe/TELC A1, A2 e B1</div><div class="bd">Simulados e estratégias para as provas oficiais</div></div></div>
+  </div>
+</section>
+
+<section class="bg1" id="sobre" style="border-top:1px solid var(--b)">
+  <div class="sobre">
+    <img class="prof-img" src="https://protocoloovidio.com.br/assets/muryel-hero-leao-CdiX2-7C.jpg" alt="Muryel Ovídio"/>
+    <div class="prof-body">
+      <p style="color:var(--gold);font-size:11px;letter-spacing:2px;font-weight:700;text-transform:uppercase;margin-bottom:8px">Seu professor</p>
+      <h2>Muryel <span class="gold">Ovídio</span></h2>
+      <p>Sou poliglota fluente em português, alemão, inglês e espanhol. Fundei a Ovídio Academy e criei o Método Ovídio™ — que já ajudou mais de 3.000 alunos a alcançarem fluência em alemão e outros idiomas.</p>
+      <p>Minha missão é provar que qualquer pessoa pode aprender um idioma rapidamente — com o método certo, consistência e suporte real. Uso as mesmas técnicas que os poliglotas usam, adaptadas para quem tem uma vida ocupada.</p>
+      <p>Já morei e viajei por países de língua alemã e continuo aprendendo idiomas até hoje. Ensino alemão, mas também ensino você a aprender qualquer língua para o resto da vida.</p>
+      <div class="prof-tags">
+        <span class="prof-tag">🇩🇪 Alemão C1+</span><span class="prof-tag">🌍 Poliglota</span>
+        <span class="prof-tag">+3.000 alunos</span><span class="prof-tag">Método Ovídio™</span>
+        <span class="prof-tag">Fundador Ovídio Academy</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg2" id="faq">
+  <div class="sl">Dúvidas frequentes</div>
+  <h2 class="st">Perguntas <span class="gold">mais comuns</span></h2>
+  <p class="ss">Respondemos as principais dúvidas antes da sua matrícula.</p>
+  <div class="faq-wrap">
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q"><span>Preciso ter alguma base em alemão para entrar?</span><span class="faq-ico">+</span></div><div class="faq-a">Não. O programa começa do absoluto zero, no nível A1. Se você já tem alguma base, o plano de estudos personalizado vai adaptar seu ponto de partida.</div></div>
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q"><span>Quanto tempo por dia preciso dedicar?</span><span class="faq-ico">+</span></div><div class="faq-a">Entre 20 e 30 minutos por dia é suficiente para seguir o cronograma diário. O programa foi pensado para quem tem trabalho, família e agenda cheia.</div></div>
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q"><span>As aulas ao vivo têm horário fixo?</span><span class="faq-ico">+</span></div><div class="faq-a">As aulas ao vivo acontecem 2x por semana com horário flexível. Se não puder assistir ao vivo, as gravações ficam disponíveis para assistir quando quiser.</div></div>
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q"><span>O acesso realmente é vitalício?</span><span class="faq-ico">+</span></div><div class="faq-a">Sim. Ao comprar o Programa AcM, você tem acesso vitalício a todo o conteúdo A1–B2, bônus e futuras atualizações — sem mensalidade.</div></div>
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q"><span>Qual a diferença entre os planos Gold e Black?</span><span class="faq-ico">+</span></div><div class="faq-a">O Gold é o programa completo em turma, com aulas ao vivo, suporte via WhatsApp e Tutor IA. O Black inclui tudo do Gold + 2 meses de aulas particulares, professor dedicado 24/7 e 6 meses de Tutor IA Premium.</div></div>
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q"><span>Posso pagar em euros via SEPA?</span><span class="faq-ico">+</span></div><div class="faq-a">Sim. Plano Gold: 250€ · Plano Black: 560€. IBAN: BE64 9050 6886 4852 · BIC: TRWIBEB1XXX.</div></div>
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q"><span>Como funciona a garantia de 30 dias?</span><span class="faq-ico">+</span></div><div class="faq-a">Se dentro de 30 dias você não estiver satisfeito por qualquer motivo, devolvemos 100% do seu investimento sem burocracia e sem perguntas.</div></div>
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q"><span>O certificado é reconhecido oficialmente?</span><span class="faq-ico">+</span></div><div class="faq-a">O certificado de conclusão é emitido pela Ovídio Academy. Para certificações internacionais (Goethe, TELC), os preparatórios oficiais já estão inclusos no programa.</div></div>
+  </div>
+</section>
+
+<div class="final">
+  <div class="sl">Última chamada</div>
+  <h2 class="st" style="max-width:600px;margin:0 auto 14px">Sua fluência em alemão <span class="gold">começa hoje</span></h2>
+  <p class="ss" style="margin-bottom:36px">Não perca o desconto de R$1.000. Após 10/06, o valor volta a R$2.497.</p>
+  <button class="btn" onclick="goTo('planos')">VER PLANOS E GARANTIR DESCONTO →</button>
+  <div style="margin-top:18px;color:var(--t4);font-size:12px;letter-spacing:.5px">🔒 AMBIENTE SEGURO · 30 DIAS DE GARANTIA · ACESSO IMEDIATO</div>
+</div>
+
+<footer>
+  <p style="font-size:15px;font-weight:700;color:#555;margin-bottom:6px">Ovídio Academy · Alemão com Muryel</p>
+  <p>© 2025 Ovídio Academy. Todos os direitos reservados. · Método Ovídio™</p>
+  <p style="margin-top:4px"><a href="https://protocoloovidio.com.br" style="color:var(--t4)">protocoloovidio.com.br</a></p>
+</footer>
+
+<button class="float" onclick="goTo('planos')">🔥 GARANTIR DESCONTO DE R$1.000</button>
+
+<script>
+// ── NAVEGAÇÃO ──
+function goTo(id){
+  const el = document.getElementById(id);
+  if(!el) return;
+  window.scrollTo({top: el.getBoundingClientRect().top + window.pageYOffset - 66, behavior:'smooth'});
+}
+
+// ── DEPOIMENTOS ──
+const deps = [
+  {id:'eHNeG0nUsqM', nome:'Ana Carolina',  tag:'B1 em 8 meses'},
+  {id:'hKmAEe9HvAM', nome:'Pedro Lemos',   tag:'Aprovado no Goethe A2'},
+  {id:'Hz7A4NNnr04', nome:'Fernanda S.',   tag:'Falando com nativos'},
+  {id:'HLD39-lm1fQ', nome:'Rafael M.',     tag:'Morando na Alemanha'},
+  {id:'tayOhNls-Kc', nome:'Camila R.',     tag:'Do zero ao A2 em 28 dias'},
+  {id:'aQMh6MwzZ1c', nome:'Bruno T.',      tag:'Conseguiu visto de trabalho'},
+  {id:'bIAhCFW97eg', nome:'Juliana P.',    tag:'Aprovada no TELC B1'},
+  {id:'DTB7qZFFdyM', nome:'Lucas V.',      tag:'Entrevista em alemão'},
+  {id:'NpBgs9RZJKg', nome:'Mariana C.',    tag:'Fluente em 10 meses'},
+];
+
+const bgs = [
+  'linear-gradient(150deg,#1c0a0a,#2e1010)',
+  'linear-gradient(150deg,#0a1c0a,#102e10)',
+  'linear-gradient(150deg,#0a0a1c,#10102e)',
+  'linear-gradient(150deg,#1c140a,#2e2010)',
+  'linear-gradient(150deg,#0a141c,#10202e)',
+  'linear-gradient(150deg,#1c0a1c,#2e102e)',
+  'linear-gradient(150deg,#0e1c0a,#182e10)',
+  'linear-gradient(150deg,#1c0a0e,#2e1018)',
+  'linear-gradient(150deg,#0a0e1c,#10182e)',
+];
+
+const grid = document.getElementById('depGrid');
+
+deps.forEach(function(v, i){
+  var card = document.createElement('div');
+  card.className = 'dep-card';
+  card.style.background = bgs[i % bgs.length];
+  card.innerHTML =
+    '<div class="dep-face">' +
+      '<div class="dep-num">Depoimento ' + String(i+1).padStart(2,'0') + '</div>' +
+      '<div class="dep-play"><svg width="22" height="22" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" fill="#000"/></svg></div>' +
+      '<div class="dep-name">' + v.nome + '</div>' +
+      '<div class="dep-badge">✓ ' + v.tag + '</div>' +
+    '</div>';
+  card.addEventListener('click', function(){
+    // para outros
+    grid.querySelectorAll('.dep-card.playing').forEach(function(c){
+      c.classList.remove('playing');
+      var fr = c.querySelector('iframe');
+      if(fr) fr.remove();
+    });
+    // embed
+    var fr = document.createElement('iframe');
+    fr.setAttribute('src','https://www.youtube-nocookie.com/embed/'+v.id+'?autoplay=1&rel=0&playsinline=1');
+    fr.setAttribute('allow','autoplay; encrypted-media; fullscreen');
+    fr.setAttribute('allowfullscreen','true');
+    fr.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:none;z-index:2';
+    card.appendChild(fr);
+    card.classList.add('playing');
+  });
+  grid.appendChild(card);
+});
+
+// ── EMENTA ──
+function toggleEmenta(el){
+  var open = el.classList.contains('open');
+  document.querySelectorAll('.ementa-item').forEach(function(i){ i.classList.remove('open'); });
+  if(!open) el.classList.add('open');
+}
+
+// ── FAQ ──
+function toggleFaq(el){ el.classList.toggle('open'); }
+</script>
+</body>
+</html>
