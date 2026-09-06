@@ -15,12 +15,28 @@ export interface PdfParseResult {
   rawTextSample: string;
 }
 
-export async function parsePdfBuffer(buffer: Buffer): Promise<PdfParseResult> {
-  const parser = new PDFParse({ data: new Uint8Array(buffer) });
+export async function parsePdfBuffer(
+  buffer: Buffer,
+  password?: string
+): Promise<PdfParseResult> {
+  const parser = new PDFParse({
+    data: new Uint8Array(buffer),
+    password: password || undefined,
+  });
   let text: string;
   try {
     const result = await parser.getText();
     text = result.text;
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    if (/password/i.test(message)) {
+      throw new Error(
+        password
+          ? "Senha incorreta para este PDF."
+          : "Este PDF tem senha. Informe a senha do extrato para importar."
+      );
+    }
+    throw err;
   } finally {
     await parser.destroy();
   }

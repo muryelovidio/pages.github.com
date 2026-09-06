@@ -8,6 +8,7 @@ import { uploadAndParse } from "./actions";
 export default function UploadForm({ accounts }: { accounts: Account[] }) {
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
+  const [isPdf, setIsPdf] = useState(false);
 
   function handleSubmit(formData: FormData) {
     setError(null);
@@ -59,9 +60,23 @@ export default function UploadForm({ accounts }: { accounts: Account[] }) {
           name="file"
           required
           accept=".csv,.xlsx,.xls,.pdf"
+          onChange={(e) => setIsPdf(!!e.target.files?.[0]?.name.toLowerCase().endsWith(".pdf"))}
           className="rounded-lg border border-border px-3 py-2 text-sm outline-none focus:border-accent file:mr-3 file:rounded-md file:border-0 file:bg-black/[.05] file:px-3 file:py-1 file:text-sm"
         />
       </label>
+
+      {isPdf && (
+        <label className="flex flex-col gap-1 text-sm">
+          <span className="text-muted">Senha do PDF (se o extrato tiver senha)</span>
+          <input
+            type="password"
+            name="pdf_password"
+            autoComplete="off"
+            placeholder="Deixe em branco se não tiver senha"
+            className="rounded-lg border border-border px-3 py-2 text-sm outline-none focus:border-accent"
+          />
+        </label>
+      )}
 
       {error && <p className="text-sm text-negative">{error}</p>}
 
