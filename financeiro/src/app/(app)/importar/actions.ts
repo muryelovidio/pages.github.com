@@ -40,13 +40,14 @@ export async function uploadAndParse(formData: FormData) {
   }
 
   const buffer = Buffer.from(await file.arrayBuffer());
+  const pdfPassword = String(formData.get("pdf_password") || "");
 
   const parsed =
     fileType === "csv"
       ? parseCsvBuffer(buffer)
       : fileType === "xlsx"
         ? await parseXlsxBuffer(buffer)
-        : await parsePdfBuffer(buffer);
+        : await parsePdfBuffer(buffer, pdfPassword);
 
   const { data: batch, error: batchError } = await supabase
     .from("import_batches")
